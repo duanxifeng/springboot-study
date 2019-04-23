@@ -22,6 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class WebLogAspect {
 
+    /**
+     * 匹配RestController或者Controller注解的类的方法
+     */
     @Pointcut("@within(org.springframework.web.bind.annotation.RestController) " +
             "|| @within(org.springframework.stereotype.Controller)")
     public void webLog() {

@@ -13,6 +13,7 @@
         <module>redis-sentinel</module>
         <module>mybatis-plus</module>
         <module>web-core</module>
+        <module>rabbitmq</module>
     </modules>
 
 
