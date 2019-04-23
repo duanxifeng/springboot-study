@@ -23,3 +23,10 @@ AcknowledgeMode.NONE：自动确认
 AcknowledgeMode.AUTO：根据情况确认
 AcknowledgeMode.MANUAL：手动确认
 
+## topic
+星号（*） ：只能匹配一个单词
+井号（#）：可以匹配0个或多个单词
+
+如果一个队列绑定的键为"#"时，将会接收所有的队列，类似于fanout转发器。
+如果绑定的队列不包含"#"和"*"时，这时候类似于Direct模式，直接匹配。
+
