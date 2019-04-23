@@ -5,10 +5,13 @@
 package zero.springboot.study.rabbitmq.direct;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import zero.springboot.study.rabbitmq.model.User;
+
+import java.util.UUID;
 
 /**
  * @author lijianqing
@@ -28,6 +31,10 @@ public class HelloSender {
         user.setPass("111111");
         //发送消息到hello队列
         log.info("发送消息：{}", user);
-        rabbitTemplate.convertAndSend("hello", user);
+        rabbitTemplate.convertAndSend("hello", user, new CorrelationData(UUID.randomUUID().toString()));
+
+        String msg = "hello qing";
+        log.info("发送消息：{}", msg);
+        rabbitTemplate.convertAndSend("hello", msg);
     }
 }

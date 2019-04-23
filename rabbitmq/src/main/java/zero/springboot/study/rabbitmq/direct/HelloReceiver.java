@@ -24,19 +24,40 @@ import java.io.IOException;
  * @date 2019/4/23 11:42
  */
 @Component
-@RabbitListener(queues = "hello")
 @Slf4j
 public class HelloReceiver {
 
+    @RabbitListener(queues = "hello")
     @RabbitHandler
     public void processUser(User user, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
         log.info("收到消息：{}", user);
         // 手动ACK
         try {
-//            //消息确认
+//            //消息确认，代表消费者确认收到当前消息，语义上表示消费者成功处理了当前消息。
             channel.basicAck(tag, false);
-            //否认消息，重新入队列然后一直重新消费
-//            channel.basicNack(tag, false, true);
+//             代表消费者拒绝一条或者多条消息，第二个参数表示一次是否拒绝多条消息，第三个参数表示是否把当前消息重新入队
+//        channel.basicNack(deliveryTag, false, false);
+
+            // 代表消费者拒绝当前消息，第二个参数表示是否把当前消息重新入队
+//        channel.basicReject(deliveryTag,false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RabbitListener(queues = "hello")
+    @RabbitHandler
+    public void processString(String message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
+        log.info("收到消息：{}", message);
+        // 手动ACK
+        try {
+//            //消息确认，代表消费者确认收到当前消息，语义上表示消费者成功处理了当前消息。
+            channel.basicAck(tag, false);
+//             代表消费者拒绝一条或者多条消息，第二个参数表示一次是否拒绝多条消息，第三个参数表示是否把当前消息重新入队
+//        channel.basicNack(deliveryTag, false, false);
+
+            // 代表消费者拒绝当前消息，第二个参数表示是否把当前消息重新入队
+//        channel.basicReject(deliveryTag,false);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 
 /**
  * 消息失败返回，比如路由不到队列时触发回调
+ * 如果发送到交换器成功，但是没有匹配的队列，就会触发这个回调
  *
  * @author lijianqing
  * @version 1.0
@@ -30,6 +31,7 @@ public class RabbitTemplateReturnCallback implements RabbitTemplate.ReturnCallba
     public void init() {
         //指定 ReturnCallback
         rabbitTemplate.setReturnCallback(this);
+        rabbitTemplate.setMandatory(true);
     }
 
     @Override
