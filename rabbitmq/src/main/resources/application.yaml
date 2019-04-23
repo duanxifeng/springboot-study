@@ -11,7 +11,9 @@ spring:
     username: fengsibo
     password: fengsibo
     port: 5672
+    # 消息失败返回，比如路由不到队列时触发回调
     publisher-returns: true
+    # 消息正确发送确认
     publisher-confirms: true
     template:
       retry:
