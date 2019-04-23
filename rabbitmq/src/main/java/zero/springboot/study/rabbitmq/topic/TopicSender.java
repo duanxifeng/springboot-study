@@ -22,7 +22,7 @@ public class TopicSender {
     private RabbitTemplate rabbitTemplate;
 
     /**
-     * 匹配topic.message
+     * 匹配topic.message，两个队列都会收到
      */
     public void send1() {
         String context = "hi, i am message 1";
