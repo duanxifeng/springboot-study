@@ -25,9 +25,9 @@ import java.io.IOException;
  */
 @Component
 @Slf4j
+@RabbitListener(queues = "hello")
 public class HelloReceiver {
 
-    @RabbitListener(queues = "hello")
     @RabbitHandler
     public void processUser(User user, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
         log.info("收到消息：{}", user);
@@ -45,7 +45,6 @@ public class HelloReceiver {
         }
     }
 
-    @RabbitListener(queues = "hello")
     @RabbitHandler
     public void processString(String message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) {
         log.info("收到消息：{}", message);
