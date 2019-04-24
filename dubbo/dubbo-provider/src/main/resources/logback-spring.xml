@@ -100,6 +100,19 @@
 		</filter>
 	</appender>
 
+	<!-- 输出指定级别日志到指定system.log文件-->
+	<appender name="invokerLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<pattern>${logPattern}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+		<file>${logPath}/${logName}/invoker.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${logPath}/backup/${logName}/invoker.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+			<MaxHistory>30</MaxHistory>
+			<maxFileSize>200MB</maxFileSize>
+		</rollingPolicy>
+	</appender>
 
 	<!-- 输出sql日志到指定sql.log文件 -->
 	<appender name="sqlAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -115,36 +128,22 @@
 			<maxFileSize>200MB</maxFileSize>
 		</rollingPolicy>
 	</appender>
+	<!-- 输出指定目录的日志到frameworkAppender配置，同时指定日志输出级别为大于等于info，向root传递-->
+	<logger name="com.zero.provider.aspect.DubboExceptionAspect" level="INFO">
+		<appender-ref ref="invokerLogAppender" />
+	</logger>
 
-
-    <!-- sql日志打印定义 start-->
-	<!-- additivity: 是否向上级logger传递打印信息。默认是true -->
-	<logger name="org.mybatis" level="DEBUG" additivity="false">
-		<appender-ref ref="sqlAppender" />
-		<appender-ref ref="stdout" />
-	</logger>
-	<logger name="com.alibaba.druid" level="DEBUG" additivity="false">
-		<appender-ref ref="sqlAppender" />
-		<appender-ref ref="stdout" />
-	</logger>
-	<logger name="java.sql" level="DEBUG" additivity="false">
-		<appender-ref ref="sqlAppender" />
-		<appender-ref ref="stdout" />
-	</logger>
-	<logger name="com.baomidou.mybatisplus" level="DEBUG" additivity="false">
-		<appender-ref ref="sqlAppender" />
-		<appender-ref ref="stdout" />
-	</logger>
 	<!-- 本项目定义Mapper接口的包 -->
-	<!--<logger name="com.lls.fk.service.mapper" level="DEBUG" additivity="false">
+	<logger name="com.zero.provider.dao" level="DEBUG" additivity="false">
 		<appender-ref ref="sqlAppender" />
 		<appender-ref ref="stdout" />
-	</logger>-->
+	</logger>
 	<!--sql日志打印定义  end -->
 
 	<root level="INFO">
 		<appender-ref ref="stdout" />
-		<!--<appender-ref ref="sqlAppender" />-->
+		<appender-ref ref="invokerLogAppender" />
+		<appender-ref ref="sqlAppender" />
 		<appender-ref ref="allAppender" />
 		<appender-ref ref="infoAppender" />
 		<appender-ref ref="warnAppender" />
