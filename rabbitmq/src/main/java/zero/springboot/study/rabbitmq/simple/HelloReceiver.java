@@ -2,7 +2,7 @@
  * Project: springboot-parent-pom
  * File created at 2019/4/23 11:42
  */
-package zero.springboot.study.rabbitmq.direct;
+package zero.springboot.study.rabbitmq.simple;
 
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ import java.io.IOException;
  */
 @Component
 @Slf4j
-@RabbitListener(queues = "hello")
+@RabbitListener(queues = "simple")
 public class HelloReceiver {
 
     @RabbitHandler

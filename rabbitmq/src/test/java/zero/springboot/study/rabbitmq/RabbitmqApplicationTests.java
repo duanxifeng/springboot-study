@@ -5,8 +5,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import zero.springboot.study.rabbitmq.direct.HelloSender;
+import zero.springboot.study.rabbitmq.direct.DirectSender;
 import zero.springboot.study.rabbitmq.fanout.FanoutSender;
+import zero.springboot.study.rabbitmq.simple.HelloSender;
 import zero.springboot.study.rabbitmq.topic.TopicSender;
 
 @RunWith(SpringRunner.class)
@@ -14,7 +15,7 @@ import zero.springboot.study.rabbitmq.topic.TopicSender;
 public class RabbitmqApplicationTests {
 
     @Autowired
-    private HelloSender helloSender;
+    private DirectSender directSender;
 
     @Autowired
     private TopicSender topicSender;
@@ -22,9 +23,12 @@ public class RabbitmqApplicationTests {
     @Autowired
     private FanoutSender fanoutSender;
 
+    @Autowired
+    private HelloSender helloSender;
+
     @Test
     public void testDirect() {
-        helloSender.send();
+        directSender.send();
     }
 
     @Test
@@ -42,5 +46,9 @@ public class RabbitmqApplicationTests {
         fanoutSender.send();
     }
 
+    @Test
+    public void testSimple() {
+        helloSender.send();
+    }
 
 }
