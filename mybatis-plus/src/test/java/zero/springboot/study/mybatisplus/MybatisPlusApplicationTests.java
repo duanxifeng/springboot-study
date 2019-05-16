@@ -10,8 +10,8 @@ import zero.springboot.study.mybatisplus.mapper.master.VipAccountMapper;
 import zero.springboot.study.mybatisplus.mapper.slave.VipAccountMapperSlave;
 import zero.springboot.study.mybatisplus.service.vip.VipAccountServiceImpl;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = MybatisPlusApplication.class)
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = MybatisPlusApplication.class)
 public class MybatisPlusApplicationTests {
 
     @Autowired
@@ -41,5 +41,25 @@ public class MybatisPlusApplicationTests {
         VipAccount data = vipAccountMapperSlave.selectById(3);
         System.out.println(data.toString());
     }
+
+    @Test
+    public void testMapperCrud1() {
+        VipAccount vipAccount = new VipAccount();
+        vipAccount.setUsername("青龙");
+        System.out.println(vipAccount.toString());
+        vipAccount = null;
+        vipAccount.setUsername("哈哈");
+        System.out.println(vipAccount.toString());
+    }
+
+    public static void main(String[] args) {
+        VipAccount vipAccount = new VipAccount();
+        vipAccount.setUsername("青龙");
+        System.out.println(vipAccount.toString());
+        vipAccount = null;
+        vipAccount.setUsername("哈哈");
+        System.out.println(vipAccount.toString());
+    }
+
 
 }

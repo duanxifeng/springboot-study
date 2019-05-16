@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 注意，发送者和接收者的 queue name 必须一致，不然不能接收.
  *
  * @author lijianqing
  * @version 1.0
